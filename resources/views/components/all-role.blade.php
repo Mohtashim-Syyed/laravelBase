@@ -1,9 +1,7 @@
 <table id="dt-button" class="table table-bordered table-hover table-striped w-100">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Region</th>
+            <th>Role Name</th>
             <th>Status</th>
             <th>Actions</th>
             <!-- <th>Salary</th> -->
@@ -13,11 +11,9 @@
 
 	@foreach($result as $result)
 		<tr>
-			<td>{{$result->f_name}} {{$result->l_name}}</td>
-            <td>abc</td>
-            <td>region</td>
+			<td>{{$result->role_name}}</td>
 			<td>Active</td>
-            <td><a onclick="LoadPage('/assignuserrights/{{$result->id}}/{{$result->f_name}}/{{$result->l_name}}')" class="btn btn-primary"style="color:white !important;">Assign Rights</a></td>
+            <td><a onclick="LoadPage('/assignrolerights/{{$result->id}}/{{$result->role_name}}')" class="btn btn-primary"style="color:white !important;">Assign Rights</a></td>
             
 		</tr>
 	@endforeach

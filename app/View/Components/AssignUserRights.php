@@ -4,19 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class home extends Component
+class AssignUserRights extends Component
 {
-  
-    public $res;
-   
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($results)
+    public function __construct()
     {
-     $this->res=$results;   
+        //
     }
 
     /**
@@ -26,6 +23,6 @@ class home extends Component
      */
     public function render()
     {
-        return view('components.home')->with('result',$this->res);
+        return view('components.assign-user-rights');
     }
 }

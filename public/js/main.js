@@ -92,25 +92,6 @@ function postData(pUrl,pData,gUrl,sTitle,sDesc){
     });
 }
 
-function SubmitFrmCreateShop(form){
-    DisbaleButton(form);
-    postData('submitshop',$(form).serialize(),'addshop','Success','Shop Created Succesfully');
-    EnableButton(form);
-   
-}
-function SubmitAddFieldToShop(form){
-    $('#mdlAddField').modal('hide')
-    DisbaleButton(form);
-    let shopId=parseInt(form.elements[0].value);
-    postData('submitaddfieldtoshop',$(form).serialize(),`shopfields/${shopId}`,'Success','New Fields Assigned to Shop');
-    EnableButton(form);
-}
-function addShopFieldsData(form){
-    DisbaleButton(form);
-    let shopId=parseInt(form.elements[0].value);
-    postData('addshopfieldsdata',$(form).serialize(),`shopfields/${shopId}`,'Success','Data Inserted');
-    EnableButton(form);
-}
 
 window.onload=()=>{
     $.ajaxSetup({

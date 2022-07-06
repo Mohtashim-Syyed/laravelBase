@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\test;
-use App\Http\Controllers\portal;
-use App\Http\Controllers\shop;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\PortalController;
+use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\UserRightsController;
+use App\Http\Controllers\RoleRightsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 
@@ -20,9 +20,19 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
     Route::group(['middleware' => ['auth','prevent-back-history','cors']], function () {
-        Route::get('/',[portal::class,'main']);
-        Route::get('/table',[test::class,'LoadTable'])->middleware('only.ajax')->name('table');
-       
+        // Route::get('/',[portal::class,'main']);
+        // Route::get('/table',[test::class,'LoadTable'])->middleware('only.ajax')->name('table');
+     // Route::get('/table',[test::class,'LoadTable'])->middleware('only.ajax')->name('table');
+
+        // Route::get('/',function(){return view('master');});
+        Route::get('/dashboard',[UserManagementController::class,'LoadHome'])->middleware('only.ajax')->name('dashboard');
+        Route::get('/alluser',[UserManagementController::class,'LoadHome'])->middleware('only.ajax')->name('alluser');
+        Route::get('/',[PortalController::class,'main']);
+        Route::get('/assignuserrights/{id}/{f_name}/{l_name}',[UserRightsController::class,'ShowMenus'])->middleware('only.ajax');
+        Route::post('/assignUserRightsSubmit',[UserRightsController::class,'AssignRiights'])->middleware('only.ajax');
+        Route::get('/allroles',[RoleRightsController::class,'AllRoles'])->middleware('only.ajax')->name('allroles');
+        Route::get('/assignrolerights/{id}/{role_name}',[RoleRightsController::class,'ShowMenus'])->middleware('only.ajax');
+        Route::post('/assignRoleRightsSubmit',[RoleRightsController::class,'AssignRoleRiights'])->middleware('only.ajax');
 
    
     

@@ -37,7 +37,7 @@
   
 </head>
 <body class="mod-bg-1 ">
-    <script>
+<script>
         'use strict';
 
         var classHolder = document.getElementsByTagName("BODY")[0],
@@ -126,7 +126,211 @@
                         </a>
                     </div>
                     <ul id="js-nav-menu" class="nav-menu">
-                        @foreach ($menus as $item)
+
+
+
+
+
+                    @foreach ($rMenus as $ritem)
+                            <li>
+                                @if ($ritem->is_parent == 1 && $ritem->parent_id == 0 && $ritem->route == '0')
+                                    <a>
+                                        <i class="fal fa-map-marker-alt"></i>
+                                        <span class="nav-link-text"
+                                            data-i18n="nav.font_icons">{{ $ritem->title }}</span>
+                                    </a>
+                                @endif
+                                <ul>
+                                    @foreach ($rMenus as $rsub_item)
+                                        @if ($rsub_item->is_parent == 1 && $rsub_item->parent_id == $ritem->menu_id && $rsub_item->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}</span>
+                                                </a>
+                                                <ul>
+                                                    @foreach ($rMenus as $rpage)
+                                                        @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
+                                                            <li onclick="LoadPage('{{$rpage->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($rMenus as $rpage2)
+                                        @if ($rpage2->parent_id == $ritem->menu_id && $rpage2->route != '0')
+                                            <li onclick="LoadPage('{{$rpage2->route }}')">
+                                                <a  title="Light" data-filter-tags="font icons fontawesome light">
+                                                    <span class="nav-link-text no-gutters"
+                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage2->title }}</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+
+
+
+
+                        @foreach ($rMenus1 as $ritem1)
+                            <li>
+                                @if ($ritem1[0]->is_parent == 1 && $ritem1[0]->parent_id == 0 && $ritem1[0]->route == '0')
+                                    <a>
+                                        <i class="fal fa-map-marker-alt"></i>
+                                        <span class="nav-link-text"
+                                            data-i18n="nav.font_icons">{{ $ritem1[0]->title }}</span>
+                                    </a>
+                                @endif
+                                <ul>
+                                    @foreach ($rMenus1 as $rsub_item1)
+                                    
+                                        @if ($rsub_item1[0]->is_parent == 1 && $rsub_item1[0]->parent_id == $ritem1[0]->id && $rsub_item1[0]->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item1[0]->title }}</span>
+                                                </a>
+                                                <ul>
+                                                @foreach ($rMenus as $rpage)
+                                                        @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
+                                                            <li onclick="LoadPage('{{$rpage->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($rMenus as $rsub_item)
+                                        @if ($rsub_item->is_parent == 1 && $rsub_item->parent_id == $ritem->menu_id && $rsub_item->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}</span>
+                                                </a>
+                                                <ul>
+                                                    @foreach ($rMenus as $rpage)
+                                                        @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
+                                                            <li onclick="LoadPage('{{$rpage->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($rMenus as $rpage2)
+                                        @if ($rpage2->parent_id == $ritem1[0]->id && $rpage2->route != '0')
+                                            <li onclick="LoadPage('{{$rpage2->route }}')">
+                                                <a  title="Light" data-filter-tags="font icons fontawesome light">
+                                                    <span class="nav-link-text no-gutters"
+                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage2->title }}</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+
+
+                        @foreach ($rMenus2 as $ritem2)
+                            <li>
+                                @if ($ritem2[0]->is_parent == 1 && $ritem2[0]->parent_id == 0 && $ritem2[0]->route == '0')
+                                    <a>
+                                        <i class="fal fa-map-marker-alt"></i>
+                                        <span class="nav-link-text"
+                                            data-i18n="nav.font_icons">{{ $ritem2[0]->title }}</span>
+                                    </a>
+                                @endif
+                                <ul>
+                                @foreach ($rMenus1 as $rsub_item1)   
+                               
+                                @if ($rsub_item1[0]->is_parent == 1 && $rsub_item1[0]->parent_id == $ritem2[0]->id && $rsub_item1[0]->route == '0')
+                                        <li>
+                                            <a href="javascript:void(0);" title="FontAwesome"
+                                                data-filter-tags="font icons fontawesome">
+                                                <span class="nav-link-text"
+                                                    data-i18n="nav.font_icons_fontawesome">{{ $rsub_item1[0]->title }}</span>
+                                            </a>
+                                            <ul>
+                                            @foreach ($rMenus as $rpage)
+
+                    
+
+
+                                                    @if ($rpage->parent_id == $rsub_item1[0]->id && $rpage->parent_id == $rsub_item1[0]->id)
+                                                        <li onclick="LoadPage('{{$rpage->route }}')" >
+                                                            <a  title="Light"
+                                                                data-filter-tags="font icons fontawesome light">
+                                                                <span class="nav-link-text no-gutters"
+                                                                    data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endif
+                                @endforeach
+                                @foreach ($rMenus as $rsub_item)
+                                        @if ($rsub_item->is_parent == 1 && $rsub_item->parent_id == $ritem->menu_id && $rsub_item->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}</span>
+                                                </a>
+                                                <ul>
+                                                    @foreach ($rMenus as $rpage)
+                                                        @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
+                                                            <li onclick="LoadPage('{{$rpage->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                   
+                                </ul>
+                            </li>
+                        @endforeach
+
+
+
+
+<!-- user rights tree -->
+
+
+@foreach ($menus as $item)
                             <li>
                                 @if ($item->is_parent == 1 && $item->parent_id == 0 && $item->route == '0')
                                     <a>
@@ -137,7 +341,7 @@
                                 @endif
                                 <ul>
                                     @foreach ($menus as $sub_item)
-                                        @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item->id && $sub_item->route == '0')
+                                        @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item->menu_id && $sub_item->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
@@ -146,9 +350,9 @@
                                                 </a>
                                                 <ul>
                                                     @foreach ($menus as $page)
-                                                        @if ($page->parent_id == $sub_item->id && $page->parent_id == $sub_item->id)
-                                                            <li onclick="LoadPage('{{$page->route}}')">
-                                                                <a title="Light"
+                                                        @if ($page->parent_id == $sub_item->menu_id && $page->parent_id == $sub_item->menu_id)
+                                                            <li onclick="LoadPage('{{$page->route }}')" >
+                                                                <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
                                                                         data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
@@ -161,9 +365,9 @@
                                         @endif
                                     @endforeach
                                     @foreach ($menus as $page2)
-                                        @if ($page2->parent_id == $item->id && $page2->route != '0')
-                                            <li onclick="LoadPage('{{$page2->route}}')" >
-                                                <a title="Light" data-filter-tags="font icons fontawesome light">
+                                        @if ($page2->parent_id == $item->menu_id && $page2->route != '0')
+                                            <li onclick="LoadPage('{{$page2->route }}')">
+                                                <a  title="Light" data-filter-tags="font icons fontawesome light">
                                                     <span class="nav-link-text no-gutters"
                                                         data-i18n="nav.font_icons_fontawesome_light">{{ $page2->title }}</span>
                                                 </a>
@@ -173,6 +377,172 @@
                                 </ul>
                             </li>
                         @endforeach
+
+
+
+
+                        @foreach ($menus1 as $item1)
+                            <li>
+                                @if ($item1[0]->is_parent == 1 && $item1[0]->parent_id == 0 && $item1[0]->route == '0')
+                                    <a>
+                                        <i class="fal fa-map-marker-alt"></i>
+                                        <span class="nav-link-text"
+                                            data-i18n="nav.font_icons">{{ $item1[0]->title }}</span>
+                                    </a>
+                                @endif
+                                <ul>
+                                    @foreach ($menus1 as $sub_item1)
+                                    
+                                        @if ($sub_item1[0]->is_parent == 1 && $sub_item1[0]->parent_id == $item1[0]->id && $sub_item1[0]->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item1[0]->title }}</span>
+                                                </a>
+                                                <ul>
+                                                    @foreach ($menus as $page)
+                                                        @if ($page->parent_id == $sub_item1[0]->id && $page->parent_id == $sub_item1[0]->menu_id)
+                                                            <li onclick="LoadPage('{{$page->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($menus as $sub_item)
+                                        @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item1[0]->id && $sub_item->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}</span>
+                                                </a>
+                                                <ul>
+                                                    @foreach ($menus as $page)
+                                                        @if ($page->parent_id == $sub_item->menu_id && $page->parent_id == $sub_item->menu_id)
+                                                            <li onclick="LoadPage('{{$page->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($menus as $page2)
+                                        @if ($page2->parent_id == $item1[0]->id && $page2->route != '0')
+                                            <li onclick="LoadPage('{{$page2->route }}')">
+                                                <a  title="Light" data-filter-tags="font icons fontawesome light">
+                                                    <span class="nav-link-text no-gutters"
+                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page2->title }}</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+
+
+                        @foreach ($menus2 as $item2)
+                            <li>
+                                @if ($item2[0]->is_parent == 1 && $item2[0]->parent_id == 0 && $item2[0]->route == '0')
+                                    <a>
+                                        <i class="fal fa-map-marker-alt"></i>
+                                        <span class="nav-link-text"
+                                            data-i18n="nav.font_icons">{{ $item2[0]->title }}</span>
+                                    </a>
+                                @endif
+                                <ul>
+                                    @foreach ($menus1 as $sub_item1)
+                                    
+                                        @if ($sub_item1[0]->is_parent == 1 && $sub_item1[0]->parent_id == $item2[0]->id && $sub_item1[0]->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item1[0]->title }}</span>
+                                                </a>
+                                                <ul>
+                                                    @foreach ($menus as $page)
+                                                        @if ($page->parent_id == $sub_item1[0]->id && $page->parent_id == $sub_item1[0]->id)
+                                                            <li onclick="LoadPage('{{$page->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($menus as $sub_item)
+                                        @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item1[0]->id && $sub_item->route == '0')
+                                            <li>
+                                                <a href="javascript:void(0);" title="FontAwesome"
+                                                    data-filter-tags="font icons fontawesome">
+                                                    <span class="nav-link-text"
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}</span>
+                                                </a>
+                                                <ul>
+                                                    @foreach ($menus as $page)
+                                                        @if ($page->parent_id == $sub_item->menu_id && $page->parent_id == $sub_item->menu_id)
+                                                            <li onclick="LoadPage('{{$page->route }}')" >
+                                                                <a  title="Light"
+                                                                    data-filter-tags="font icons fontawesome light">
+                                                                    <span class="nav-link-text no-gutters"
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                   
+                                </ul>
+                            </li>
+                        @endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
+
+
+
+
+                        
+
+
                     </ul>
                     <div class="filter-message js-filter-message bg-success-600"></div>
                 </nav>
@@ -229,8 +599,8 @@
                         @csrf
                     </form>
                 </header>
-              <main id="js-page-content" role="main" class="page-content">
-                   
+                <main id="js-page-content" role="main" class="page-content">
+                 
                 </main>
                 <!-- this overlay is activated only when mobile menu is triggered -->
                 <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
@@ -245,7 +615,17 @@
     <script src="{{URL::asset('js/main.js')}}"></script>
     {{-- <script type="application/javascript" src="{{URL::asset('js/secure-webstore.js')}}"></script> --}}
     {{-- <script type="module" src="{{URL::asset('js/devtommy.js')}}"></script> --}}
- 
+    <script>
+        function LoadPage(courl) {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+                url: courl,
+                success: function(result) {
+                    $("#js-page-content").html(result);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
