@@ -10,7 +10,7 @@ use App\view\components\AssignUserRights;
 
 class UserRightsController extends Controller
 {
-    public function ShowMenus($id,$f_name,$l_name){
+    public function showMenus($id,$f_name,$l_name){
         // $result= menu::where('parent_id', '0')->orderBy('id', 'ASC')->get(); 
         // $result2= menu::where('parent_id', '0')->orderBy('id', 'ASC')->get(); 
         // $result->id;
@@ -30,7 +30,7 @@ class UserRightsController extends Controller
                       'userRights'=>$userRights]);
      }
 
-    public function AssignRiights(Request $request)
+    public function assignRiights(Request $request)
     {   
           $userId             = $request->userId;
           $parentMenuId       = $request->ParentMenu;

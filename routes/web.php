@@ -25,14 +25,14 @@ Auth::routes();
      // Route::get('/table',[test::class,'LoadTable'])->middleware('only.ajax')->name('table');
 
         // Route::get('/',function(){return view('master');});
-        Route::get('/dashboard',[UserManagementController::class,'LoadHome'])->middleware('only.ajax')->name('dashboard');
-        Route::get('/alluser',[UserManagementController::class,'LoadHome'])->middleware('only.ajax')->name('alluser');
+        Route::get('/dashboard',[UserManagementController::class,'loadHome'])->middleware('only.ajax')->name('dashboard');
+        Route::get('/alluser',[UserManagementController::class,'loadHome'])->middleware('only.ajax')->name('alluser');
         Route::get('/',[PortalController::class,'main']);
-        Route::get('/assignuserrights/{id}/{f_name}/{l_name}',[UserRightsController::class,'ShowMenus'])->middleware('only.ajax');
-        Route::post('/assignUserRightsSubmit',[UserRightsController::class,'AssignRiights'])->middleware('only.ajax');
+        Route::get('/assignuserrights/{id}/{f_name}/{l_name}',[UserRightsController::class,'showMenus'])->middleware('only.ajax');
+        Route::post('/assignUserRightsSubmit',[UserRightsController::class,'assignRiights'])->middleware('only.ajax');
         Route::get('/allroles',[RoleRightsController::class,'AllRoles'])->middleware('only.ajax')->name('allroles');
-        Route::get('/assignrolerights/{id}/{role_name}',[RoleRightsController::class,'ShowMenus'])->middleware('only.ajax');
-        Route::post('/assignRoleRightsSubmit',[RoleRightsController::class,'AssignRoleRiights'])->middleware('only.ajax');
+        Route::get('/assignrolerights/{id}/{role_name}',[RoleRightsController::class,'showMenus'])->middleware('only.ajax');
+        Route::post('/assignRoleRightsSubmit',[RoleRightsController::class,'assignRoleRiights'])->middleware('only.ajax');
 
    
     

@@ -1,12 +1,12 @@
 @php 
-$page2Array = [];
-$page21Array = [];
-$array=[];
+$menuChild = [];
+$subMenuParent = [];
+$roleRightsMenuId=[];
 
 
 foreach ($roleRights as $roleRight)
 {
-$array[]=$roleRight->menu_id;
+$roleRightsMenuId[]=$roleRight->menu_id;
 
 }
 
@@ -35,7 +35,7 @@ $array[]=$roleRight->menu_id;
             @foreach ($menus as $sub_item)
                     @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item->id && $sub_item->route == '0')
                     @php
-                        $page21Array[]=$sub_item->id;
+                        $subMenuParent[]=$sub_item->id;
                         @endphp 
                          <tr>   
                             <td style="font-weight:bold; font-size: 16px;">{{$sub_item->title}}</td>
@@ -110,7 +110,7 @@ function toggle(source)
   //checking/unchecking sub-parents and sub-menus
     function toggle2(source) 
     {
-        var app = @json($page21Array);
+        var app = @json($subMenuParent);
         for (let i = 0; i < app.length; i++) 
         {
                 const elements1 = document.querySelectorAll(`[id^="SubChild${app[i]}"]`);
@@ -145,7 +145,7 @@ function toggle(source)
 
 //mark checked all the checkboxes whose rights are already assigned to the user
     $(document).ready( function () {
-        var app = @json($array);
+        var app = @json($roleRightsMenuId);
         var aInputs = document.getElementsByTagName('input');
         for (var i=0;i<aInputs.length;i++)
          {
@@ -193,7 +193,7 @@ function toggle(source)
 //  $(document).ready(function() {
 //   $(".ParentMenu").change(function() {
 //     var val = $(this).val();
-//     var app = @json($page2Array);
+//     var app = @json($menuChild);
 //    console.log(val);
 //     for (let i = 0; i < app.length; i++) {
         
@@ -217,7 +217,7 @@ function toggle(source)
 
 
 // $(document).ready( function () {
-    //     var app = @json($array);
+    //     var app = @json($roleRightsMenuId);
     //     for (let i = 0; i < app.length; i++)
     //      {
     

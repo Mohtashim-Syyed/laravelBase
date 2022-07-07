@@ -9,7 +9,7 @@ use App\Models\role_menu;
 use App\Models\menu;
 class RoleRightsController extends Controller
 {
-    public function AllRoles(){
+    public function allRoles(){
       
         $result  =  role::where(
           'status', '=', '1'
@@ -21,7 +21,7 @@ class RoleRightsController extends Controller
      }
 
 
-     public function ShowMenus($id,$role_name){
+     public function showMenus($id,$role_name){
         // $result= menu::where('parent_id', '0')->orderBy('id', 'ASC')->get(); 
         // $result2= menu::where('parent_id', '0')->orderBy('id', 'ASC')->get(); 
         // $result->id;
@@ -41,7 +41,7 @@ class RoleRightsController extends Controller
      }
 
 
-     public function AssignRoleRiights(Request $request)
+     public function assignRoleRiights(Request $request)
      {   
            $roleId             = $request->userId;
            $parentMenuId       = $request->ParentMenu;
