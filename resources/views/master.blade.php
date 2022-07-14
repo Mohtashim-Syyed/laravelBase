@@ -91,7 +91,7 @@
                         class="page-logo-link press-scale-down d-flex align-items-center position-relative"
                         data-toggle="modal" data-target="#modal-shortcut">
                         <img src="img/logo.png" alt="SmartAdmin WebApp" aria-roledescription="logo">
-                        <span class="page-logo-text mr-1">SSFTS</span>
+                        <span class="page-logo-text mr-1">SFTS</span>
                         <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
                         <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
                     </a>
@@ -126,37 +126,41 @@
                         </a>
                     </div>
                     <ul id="js-nav-menu" class="nav-menu">
+                        <!-- dynamic side bar acc to role rights of user -->
 
-
-
-
-
-                    @foreach ($rMenus as $ritem)
+                        <!-- this loop will show the dynamic tree for the menus which were assigned using CHECK ALL -->
+                        @foreach ($rMenus as $ritem)
                             <li>
+                                <!-- Creating Parent Menu -->
                                 @if ($ritem->is_parent == 1 && $ritem->parent_id == 0 && $ritem->route == '0')
                                     <a>
                                         <i class="fal fa-map-marker-alt"></i>
                                         <span class="nav-link-text"
-                                            data-i18n="nav.font_icons">{{ $ritem->title }}</span>
+                                            data-i18n="nav.font_icons">{{ $ritem->title }}
+                                        </span>
                                     </a>
                                 @endif
                                 <ul>
                                     @foreach ($rMenus as $rsub_item)
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                         @if ($rsub_item->is_parent == 1 && $rsub_item->parent_id == $ritem->menu_id && $rsub_item->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($rMenus as $rpage)
+                                                     <!-- checking if sub_menu has any child -->
                                                         @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
                                                             <li onclick="LoadPage('{{$rpage->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -166,11 +170,13 @@
                                         @endif
                                     @endforeach
                                     @foreach ($rMenus as $rpage2)
+                                     <!-- checking if menu has any child who himself is not a parent -->
                                         @if ($rpage2->parent_id == $ritem->menu_id && $rpage2->route != '0')
                                             <li onclick="LoadPage('{{$rpage2->route }}')">
                                                 <a  title="Light" data-filter-tags="font icons fontawesome light">
                                                     <span class="nav-link-text no-gutters"
-                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage2->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage2->title }}
+                                                    </span>
                                                 </a>
                                             </li>
                                         @endif
@@ -179,36 +185,39 @@
                             </li>
                         @endforeach
 
-
-
-
+                        <!-- this loop will show the dynamic tree for the menus whose children were not assigned using CHECK ALL -->
                         @foreach ($rMenus1 as $ritem1)
                             <li>
+                                  <!-- Creating Parent Menu -->
                                 @if ($ritem1[0]->is_parent == 1 && $ritem1[0]->parent_id == 0 && $ritem1[0]->route == '0')
                                     <a>
                                         <i class="fal fa-map-marker-alt"></i>
                                         <span class="nav-link-text"
-                                            data-i18n="nav.font_icons">{{ $ritem1[0]->title }}</span>
+                                            data-i18n="nav.font_icons">{{ $ritem1[0]->title }}
+                                        </span>
                                     </a>
                                 @endif
                                 <ul>
                                     @foreach ($rMenus1 as $rsub_item1)
-                                    
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                         @if ($rsub_item1[0]->is_parent == 1 && $rsub_item1[0]->parent_id == $ritem1[0]->id && $rsub_item1[0]->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item1[0]->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item1[0]->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                 @foreach ($rMenus as $rpage)
+                                                     <!-- checking if sub_menu has any child -->
                                                         @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
                                                             <li onclick="LoadPage('{{$rpage->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -218,21 +227,25 @@
                                         @endif
                                     @endforeach
                                     @foreach ($rMenus as $rsub_item)
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                         @if ($rsub_item->is_parent == 1 && $rsub_item->parent_id == $ritem->menu_id && $rsub_item->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($rMenus as $rpage)
+                                                         <!-- checking if sub_menu has any child -->
                                                         @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
                                                             <li onclick="LoadPage('{{$rpage->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -242,11 +255,13 @@
                                         @endif
                                     @endforeach
                                     @foreach ($rMenus as $rpage2)
+                                      <!-- checking if menu has any child who himself is not a parent -->
                                         @if ($rpage2->parent_id == $ritem1[0]->id && $rpage2->route != '0')
                                             <li onclick="LoadPage('{{$rpage2->route }}')">
                                                 <a  title="Light" data-filter-tags="font icons fontawesome light">
                                                     <span class="nav-link-text no-gutters"
-                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage2->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage2->title }}
+                                                    </span>
                                                 </a>
                                             </li>
                                         @endif
@@ -255,38 +270,39 @@
                             </li>
                         @endforeach
 
-
+                        <!-- this loop will show the dynamic tree for the menus whose sub_menu(child) is also a parent and was assigned using CHECK ALL -->
                         @foreach ($rMenus2 as $ritem2)
                             <li>
+                                  <!-- Creating Parent Menu -->
                                 @if ($ritem2[0]->is_parent == 1 && $ritem2[0]->parent_id == 0 && $ritem2[0]->route == '0')
                                     <a>
                                         <i class="fal fa-map-marker-alt"></i>
                                         <span class="nav-link-text"
-                                            data-i18n="nav.font_icons">{{ $ritem2[0]->title }}</span>
+                                            data-i18n="nav.font_icons">{{ $ritem2[0]->title }}
+                                        </span>
                                     </a>
                                 @endif
                                 <ul>
                                 @foreach ($rMenus1 as $rsub_item1)   
-                               
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                 @if ($rsub_item1[0]->is_parent == 1 && $rsub_item1[0]->parent_id == $ritem2[0]->id && $rsub_item1[0]->route == '0')
                                         <li>
                                             <a href="javascript:void(0);" title="FontAwesome"
                                                 data-filter-tags="font icons fontawesome">
                                                 <span class="nav-link-text"
-                                                    data-i18n="nav.font_icons_fontawesome">{{ $rsub_item1[0]->title }}</span>
+                                                    data-i18n="nav.font_icons_fontawesome">{{ $rsub_item1[0]->title }}
+                                                </span>
                                             </a>
                                             <ul>
                                             @foreach ($rMenus as $rpage)
-
-                    
-
-
+                                           <!-- checking if sub_menu has any child -->
                                                     @if ($rpage->parent_id == $rsub_item1[0]->id && $rpage->parent_id == $rsub_item1[0]->id)
                                                         <li onclick="LoadPage('{{$rpage->route }}')" >
                                                             <a  title="Light"
                                                                 data-filter-tags="font icons fontawesome light">
                                                                 <span class="nav-link-text no-gutters"
-                                                                    data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                    data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}
+                                                                </span>
                                                             </a>
                                                         </li>
                                                     @endif
@@ -296,21 +312,25 @@
                                     @endif
                                 @endforeach
                                 @foreach ($rMenus as $rsub_item)
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                         @if ($rsub_item->is_parent == 1 && $rsub_item->parent_id == $ritem->menu_id && $rsub_item->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $rsub_item->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($rMenus as $rpage)
+                                                         <!-- checking if sub_menu has any child -->
                                                         @if ($rpage->parent_id == $rsub_item->menu_id && $rpage->parent_id == $rsub_item->menu_id)
                                                             <li onclick="LoadPage('{{$rpage->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $rpage->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -319,43 +339,44 @@
                                             </li>
                                         @endif
                                     @endforeach
-                                   
                                 </ul>
                             </li>
                         @endforeach
+                <!-- dynamic side bar acc to user rights -->
 
-
-
-
-<!-- user rights tree -->
-
-
-@foreach ($menus as $item)
+                <!-- this loop will show the dynamic tree for the menus which were assigned using CHECK ALL -->
+                        @foreach ($menus as $item)
                             <li>
+                                  <!-- Creating Parent Menu -->
                                 @if ($item->is_parent == 1 && $item->parent_id == 0 && $item->route == '0')
                                     <a>
                                         <i class="fal fa-map-marker-alt"></i>
                                         <span class="nav-link-text"
-                                            data-i18n="nav.font_icons">{{ $item->title }}</span>
+                                            data-i18n="nav.font_icons">{{ $item->title }}
+                                        </span>
                                     </a>
                                 @endif
                                 <ul>
                                     @foreach ($menus as $sub_item)
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                         @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item->menu_id && $sub_item->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($menus as $page)
+                                                         <!-- checking if sub_menu has any child -->
                                                         @if ($page->parent_id == $sub_item->menu_id && $page->parent_id == $sub_item->menu_id)
                                                             <li onclick="LoadPage('{{$page->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -365,11 +386,13 @@
                                         @endif
                                     @endforeach
                                     @foreach ($menus as $page2)
+                                      <!-- checking if menu has any child who himself is not a parent -->
                                         @if ($page2->parent_id == $item->menu_id && $page2->route != '0')
                                             <li onclick="LoadPage('{{$page2->route }}')">
                                                 <a  title="Light" data-filter-tags="font icons fontawesome light">
                                                     <span class="nav-link-text no-gutters"
-                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page2->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page2->title }}
+                                                    </span>
                                                 </a>
                                             </li>
                                         @endif
@@ -377,37 +400,39 @@
                                 </ul>
                             </li>
                         @endforeach
-
-
-
-
+                        <!-- this loop will show the dynamic tree for the menus whose children were not assigned using CHECK ALL -->
                         @foreach ($menus1 as $item1)
                             <li>
+                                  <!-- Creating Parent Menu -->
                                 @if ($item1[0]->is_parent == 1 && $item1[0]->parent_id == 0 && $item1[0]->route == '0')
                                     <a>
                                         <i class="fal fa-map-marker-alt"></i>
                                         <span class="nav-link-text"
-                                            data-i18n="nav.font_icons">{{ $item1[0]->title }}</span>
+                                            data-i18n="nav.font_icons">{{ $item1[0]->title }}
+                                        </span>
                                     </a>
                                 @endif
                                 <ul>
                                     @foreach ($menus1 as $sub_item1)
-                                    
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                         @if ($sub_item1[0]->is_parent == 1 && $sub_item1[0]->parent_id == $item1[0]->id && $sub_item1[0]->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item1[0]->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item1[0]->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($menus as $page)
+                                                         <!-- checking if sub_menu has any child -->
                                                         @if ($page->parent_id == $sub_item1[0]->id && $page->parent_id == $sub_item1[0]->menu_id)
                                                             <li onclick="LoadPage('{{$page->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -417,21 +442,25 @@
                                         @endif
                                     @endforeach
                                     @foreach ($menus as $sub_item)
+                                      <!--  Checking if menu has any child who himself is a parent -->                          
                                         @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item1[0]->id && $sub_item->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($menus as $page)
+                                                         <!-- checking if sub_menu has any child -->
                                                         @if ($page->parent_id == $sub_item->menu_id && $page->parent_id == $sub_item->menu_id)
                                                             <li onclick="LoadPage('{{$page->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -441,11 +470,13 @@
                                         @endif
                                     @endforeach
                                     @foreach ($menus as $page2)
+                                      <!-- checking if menu has any child who himself is not a parent -->
                                         @if ($page2->parent_id == $item1[0]->id && $page2->route != '0')
                                             <li onclick="LoadPage('{{$page2->route }}')">
                                                 <a  title="Light" data-filter-tags="font icons fontawesome light">
                                                     <span class="nav-link-text no-gutters"
-                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page2->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page2->title }}
+                                                    </span>
                                                 </a>
                                             </li>
                                         @endif
@@ -453,35 +484,39 @@
                                 </ul>
                             </li>
                         @endforeach
-
-
+                         <!-- this loop will show the dynamic tree for the menus whose sub_menu(child) is also a parent and was assigned using CHECK ALL -->
                         @foreach ($menus2 as $item2)
                             <li>
+                                  <!-- Creating Parent Menu -->
                                 @if ($item2[0]->is_parent == 1 && $item2[0]->parent_id == 0 && $item2[0]->route == '0')
                                     <a>
                                         <i class="fal fa-map-marker-alt"></i>
                                         <span class="nav-link-text"
-                                            data-i18n="nav.font_icons">{{ $item2[0]->title }}</span>
+                                            data-i18n="nav.font_icons">{{ $item2[0]->title }}
+                                        </span>
                                     </a>
                                 @endif
                                 <ul>
                                     @foreach ($menus1 as $sub_item1)
-                                    
+                                      <!--  Checking if menu has any child who himself is a parent -->            
                                         @if ($sub_item1[0]->is_parent == 1 && $sub_item1[0]->parent_id == $item2[0]->id && $sub_item1[0]->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item1[0]->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item1[0]->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($menus as $page)
+                                                         <!-- checking if sub_menu has any child -->
                                                         @if ($page->parent_id == $sub_item1[0]->id && $page->parent_id == $sub_item1[0]->id)
                                                             <li onclick="LoadPage('{{$page->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -491,21 +526,25 @@
                                         @endif
                                     @endforeach
                                     @foreach ($menus as $sub_item)
+                                      <!--  Checking if menu has any child who himself is a parent -->
                                         @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item1[0]->id && $sub_item->route == '0')
                                             <li>
                                                 <a href="javascript:void(0);" title="FontAwesome"
                                                     data-filter-tags="font icons fontawesome">
                                                     <span class="nav-link-text"
-                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}</span>
+                                                        data-i18n="nav.font_icons_fontawesome">{{ $sub_item->title }}
+                                                    </span>
                                                 </a>
                                                 <ul>
                                                     @foreach ($menus as $page)
+                                                         <!-- checking if sub_menu has any child -->
                                                         @if ($page->parent_id == $sub_item->menu_id && $page->parent_id == $sub_item->menu_id)
                                                             <li onclick="LoadPage('{{$page->route }}')" >
                                                                 <a  title="Light"
                                                                     data-filter-tags="font icons fontawesome light">
                                                                     <span class="nav-link-text no-gutters"
-                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}</span>
+                                                                        data-i18n="nav.font_icons_fontawesome_light">{{ $page->title }}
+                                                                    </span>
                                                                 </a>
                                                             </li>
                                                         @endif
@@ -514,35 +553,9 @@
                                             </li>
                                         @endif
                                     @endforeach
-                                   
                                 </ul>
                             </li>
                         @endforeach
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        
-
-
-
-
-                        
-
-
                     </ul>
                     <div class="filter-message js-filter-message bg-success-600"></div>
                 </nav>

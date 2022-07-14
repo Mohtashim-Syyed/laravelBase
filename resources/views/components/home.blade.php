@@ -2,26 +2,18 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Role</th>
-            <th>Region</th>
             <th>Status</th>
             <th>Actions</th>
-            <!-- <th>Salary</th> -->
         </tr>
     </thead>
     <tbody>
-
-	@foreach($result as $result)
-		<tr>
-			<td>{{$result->f_name}} {{$result->l_name}}</td>
-            <td>abc</td>
-            <td>region</td>
-			<td>Active</td>
-            <td><a onclick="LoadPage('/assignuserrights/{{$result->id}}/{{$result->f_name}}/{{$result->l_name}}')" class="btn btn-primary"style="color:white !important;">Assign Rights</a></td>
-            
-		</tr>
-	@endforeach
-      
+        @foreach($result as $result)
+            <tr>
+                <td>{{$result->f_name}} {{$result->l_name}}</td>
+                <td>Active</td>
+                <td><a onclick="LoadPage('/assignuserrights/{{$result->id}}/{{$result->f_name}}/{{$result->l_name}}')" class="btn btn-primary"style="color:white !important;">Assign Rights</a></td>
+            </tr>
+        @endforeach    
     </tbody>
 </table>
 
@@ -66,13 +58,13 @@
 </script>
 
 <script>
-        function LoadPage(courl) {
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
-                url: courl,
-                success: function(result) {
-                    $("#js-page-content").html(result);
-                }
-            });
-        }
+        // function LoadPage(courl) {
+        //     $.ajax({
+        //         headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+        //         url: courl,
+        //         success: function(result) {
+        //             $("#js-page-content").html(result);
+        //         }
+        //     });
+        // }
     </script>

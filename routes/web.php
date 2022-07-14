@@ -22,7 +22,7 @@ Auth::routes();
     Route::group(['middleware' => ['auth','prevent-back-history','cors']], function () {
         // Route::get('/',[portal::class,'main']);
         // Route::get('/table',[test::class,'LoadTable'])->middleware('only.ajax')->name('table');
-     // Route::get('/table',[test::class,'LoadTable'])->middleware('only.ajax')->name('table');
+        // Route::get('/table',[test::class,'LoadTable'])->middleware('only.ajax')->name('table');
 
         // Route::get('/',function(){return view('master');});
         Route::get('/dashboard',[UserManagementController::class,'loadHome'])->middleware('only.ajax')->name('dashboard');
@@ -30,11 +30,8 @@ Auth::routes();
         Route::get('/',[PortalController::class,'main']);
         Route::get('/assignuserrights/{id}/{f_name}/{l_name}',[UserRightsController::class,'showMenus'])->middleware('only.ajax');
         Route::post('/assignUserRightsSubmit',[UserRightsController::class,'assignRiights'])->middleware('only.ajax');
-        Route::get('/allroles',[RoleRightsController::class,'AllRoles'])->middleware('only.ajax')->name('allroles');
+        Route::get('/allroles',[RoleRightsController::class,'allRoles'])->middleware('only.ajax')->name('allroles');
         Route::get('/assignrolerights/{id}/{role_name}',[RoleRightsController::class,'showMenus'])->middleware('only.ajax');
         Route::post('/assignRoleRightsSubmit',[RoleRightsController::class,'assignRoleRiights'])->middleware('only.ajax');
-
-   
-    
     });
 

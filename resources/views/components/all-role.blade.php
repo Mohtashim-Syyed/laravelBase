@@ -62,13 +62,13 @@
 </script>
 
 <script>
-        function LoadPage(courl) {
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
-                url: courl,
-                success: function(result) {
-                    $("#js-page-content").html(result);
-                }
-            });
-        }
+        // function LoadPage(courl) {
+        //     $.ajax({
+        //         headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+        //         url: courl,
+        //         success: function(result) {
+        //             $("#js-page-content").html(result);
+        //         }
+        //     });
+        // }
     </script>

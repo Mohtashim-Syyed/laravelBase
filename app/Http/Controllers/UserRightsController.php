@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\menu;
 use App\Models\user_menu;
 use Illuminate\Http\Request;
@@ -16,7 +15,8 @@ class UserRightsController extends Controller
         // $result->id;
         // $html_=new AssignUserRights($result);
         // return $html_->render();
-        $userRights  =  user_menu::where([
+        $userRights  =
+        user_menu::where([
           ['user_id', '=', $id],
           ['status', '=', '1']
           ])->get();
@@ -38,7 +38,6 @@ class UserRightsController extends Controller
           $subMenuId          = $request->SubMenu;
           $subMenuChildId     = $request->SubMenuChild;
          
-     
           user_menu::where('user_id', $userId)->delete();
 
           if(!empty($parentMenuId))

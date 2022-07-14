@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\role;
 use App\view\components\AllRole;
@@ -33,7 +31,7 @@ class RoleRightsController extends Controller
           ])->get();
 
 
-        return view('components.assign-role-rights',
+          return view('components.assign-role-rights',
                      ['menus'=>menu::all(), 
                      'role_name'=>$role_name, 
                      'id'=>$id , 

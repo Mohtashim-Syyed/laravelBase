@@ -1,99 +1,88 @@
 @php 
-$menuChild = [];
-$subMenuParent = [];
-$userRightsMenuId=[];
-
-
-foreach ($userRights as $userRight)
-{
-$userRightsMenuId[]=$userRight->menu_id;
-
-}
-
+    $menuChild = [];
+    $subMenuParent = [];
+    $userRightsMenuId=[];
+    foreach ($userRights as $userRight)
+    {
+        $userRightsMenuId[]=$userRight->menu_id;
+    }
 @endphp
 <form method="POST" id="userRightsForm"  enctype="multipart/form-data">
-<!-- @method('put') -->
-		@csrf
-        <input type="hidden"  name="userId" value="{{$id}}" />
-<h2 style="font-weight:bold;">User Name: <span style="font-weight:normal;"> {{$f_name}} {{$l_name}}</span></h2>
-   <table id="dt-button" class="table table-bordered table-hover table-striped w-100">
-                            <thead>
-                                <tr>
-                                    <th>Menu Name</th>                   
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-    @foreach ($menus as $item)
- 
-        @if ($item->is_parent == 1 && $item->parent_id == 0 && $item->route == '0')
-        
-                <tr>
-                    <td style="font-weight:bold; font-size:22px;">{{$item->title}}</td>
-                    <td><input type="checkbox" class="{{$item->id}}" name="ParentMenu[]" id="ParentMenu" value="{{$item->id}}" onClick='toggle(this)' /></td>
-                </tr> 
-
-            @foreach ($menus as $sub_item)
-                    @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item->id && $sub_item->route == '0')
-                    @php
-                        $subMenuParent[]=$sub_item->id;
-                        @endphp 
-                         <tr>   
-                            <td style="font-weight:bold; font-size: 16px;">{{$sub_item->title}}</td>
-                            <td><input type="checkbox" class="{{$item->id}}" name="SubMenu[]" id="{{$sub_item->id}}" value="{{$sub_item->id}}" onClick='toggle2(this)'  /></td>
-                        </tr>
-                    @foreach ($menus as $page)
-                            @if($page->parent_id == $sub_item->id && $page->is_parent == 0  )                       
-                                    <tbody>
-                                        <tr>
-                                            <td>{{$page->title}}</td>
-                                            <!-- <input type="hidden" name="SubMenuChild[]"  value="{{$page->id}}" /> -->
-                                            <td><input type="checkbox" class="{{$item->id}}" id="SubChild{{$sub_item->id}}" name="SubMenuChild[]" value="{{$page->id}}"  /></td>
+    <!-- @method('put') -->
+    @csrf
+    <input type="hidden"  name="userId" value="{{$id}}" />
+    <h2 style="font-weight:bold;">User Name: <span style="font-weight:normal;"> {{$f_name}} {{$l_name}}</span></h2>
+    <table id="dt-button" class="table table-bordered table-hover table-striped w-100">
+        <thead>
+            <tr>
+                <th>Menu Name</th>                   
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach ($menus as $item)
+                    <!-- Creating Parent Menu -->
+                    @if ($item->is_parent == 1 && $item->parent_id == 0 && $item->route == '0')
+                            <tr>
+                                <td style="font-weight:bold; font-size:22px;">{{$item->title}}</td>
+                                <td><input type="checkbox" class="{{$item->id}}" name="ParentMenu[]" id="ParentMenu" value="{{$item->id}}" onClick='toggle(this)' /></td>
+                            </tr> 
+                        @foreach ($menus as $sub_item)
+                                <!--  Checking if a Menu have any child who himself is a parent -->
+                                @if ($sub_item->is_parent == 1 && $sub_item->parent_id == $item->id && $sub_item->route == '0')
+                                        @php
+                                          $subMenuParent[]=$sub_item->id;
+                                        @endphp 
+                                        <tr>   
+                                            <td style="font-weight:bold; font-size: 16px;">{{$sub_item->title}}</td>
+                                            <td><input type="checkbox" class="{{$item->id}}" name="SubMenu[]" id="{{$sub_item->id}}" value="{{$sub_item->id}}" onClick='toggle2(this)'  /></td>
                                         </tr>
-                                    </tbody>
-                            @endif
-                    @endforeach
+                                    @foreach ($menus as $page)
+                                     <!-- checking if sub_menu have any child -->
+                                            @if($page->parent_id == $sub_item->id && $page->is_parent == 0  )                                     
+                                                <tr>
+                                                    <td>{{$page->title}}</td>
+                                                    <!-- <input type="hidden" name="SubMenuChild[]"  value="{{$page->id}}" /> -->
+                                                    <td><input type="checkbox" class="{{$item->id}}" id="SubChild{{$sub_item->id}}" name="SubMenuChild[]" value="{{$page->id}}"  /></td>
+                                                </tr>
+                                            @endif
+                                    @endforeach
+                                @endif
+                        @endforeach
+                        @foreach ($menus as $page2)
+                          <!-- checking if a Menu have any child who himself is not a parent -->
+                                @if ($page2->parent_id == $item->id && $page2->route != '0' )               
+                                    <tr>
+                                        <td>{{$page2->title}}</td>
+                                        <td><input type="checkbox" id="{{$page2->id}}" class="{{$item->id}}" name="ParentMenuChild[]" value="{{$page2->id}}" /></td>
+                                    </tr>
+                                @endif
+                        @endforeach   
                     @endif
-                
-            @endforeach
-            @foreach ($menus as $page2)
-                    @if ($page2->parent_id == $item->id && $page2->route != '0' )               
-                                    <tbody>
-                                        <tr>
-                                            <td>{{$page2->title}}</td>
-                                            <td><input type="checkbox" id="{{$page2->id}}" class="{{$item->id}}" name="ParentMenuChild[]" value="{{$page2->id}}" /></td>
-                                        </tr>
-                                    </tbody>          
-                    @endif
-            @endforeach   
-        @endif
-    @endforeach
+                @endforeach
+        </tbody>
     </table>
-<!-- <a onclick="LoadPage('/assignuserrights/{{$page->id}}')" class="btn btn-primary" style="color:white !important;">Sub-Menu Rights</a> -->
-
-
-            <div class="form-group">
-                <div class="col-md-12 col-sm-6 col-xs-12 col-md-offset-3 " style="text-align:">
-                    <button type="submit" name="button1" id="submit" class="btn btn-primary" style="font-size:16px; margin-left:-12px;"
-                        value="Assign Permission">Assign Rights</button>
-                </div>
-            </div>
-            <!-- <input type="checkbox" class="abc" name="{{$item->title}}" /> -->
+    <!-- <a onclick="LoadPage('/assignuserrights/{{$page->id}}')" class="btn btn-primary" style="color:white !important;">Sub-Menu Rights</a> -->
+    <div class="form-group">
+        <div class="col-md-12 col-sm-6 col-xs-12 col-md-offset-3 " style="text-align:">
+            <button type="submit" name="button1" id="submit" class="btn btn-primary" style="font-size:16px; margin-left:-12px;"
+                value="Assign Permission">Assign Rights
+            </button>
+        </div>
+    </div>
 </form>
 
-
-
 <script>
-        function LoadPage(courl) {
-            $.ajax({
-                type: "GET",
-                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
-                url: courl,
-                success: function(result) {
-                    $("#js-page-content").html(result);
-                }
-            });
-        }
-
+        // function LoadPage(courl) {
+        //     $.ajax({
+        //         type: "GET",
+        //         headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+        //         url: courl,
+        //         success: function(result) {
+        //             $("#js-page-content").html(result);
+        //         }
+        //     });
+        // }
 
 //checking parents and their childs
 function toggle(source) 
@@ -106,7 +95,6 @@ function toggle(source)
             }
         }
     }
-
   //checking/unchecking sub-parents and sub-menus
     function toggle2(source) 
     {
@@ -161,10 +149,7 @@ function toggle(source)
             }
          }
 });
-    </script>
 
-
-<script>
 //form data submission   
     $(document).ready(function(){
         $("#submit").click(function(){
@@ -185,6 +170,7 @@ function toggle(source)
                 }
             });
             return false;
+            // postData("/assignUserRightsSubmit",$('#userRightsForm').serialize(),"Success","Successful");
         });
     });
     
@@ -228,9 +214,6 @@ function toggle(source)
     //     }
     // });
 
-</script>
-
-<script>
 //     $(document).ready(function()
 //    {
 //        $('#dt-button').dataTable(
